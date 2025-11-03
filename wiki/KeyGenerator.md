@@ -9,7 +9,7 @@
 <details>
   <summary>Example generation through --email-api tempmail</summary>
   
-  ![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/key_run_win_tempmail.png)
+  ![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/key_run_win_tempmail.png)
 </details>
 
 ---
@@ -29,7 +29,7 @@
   2. Wait until you will see the account data
   > This information will also be written to a file named "Today date - ESET ACCOUNTS.txt"
 
-  ![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/key_run_win.png)
+  ![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/key_run_win.png)
 </details>
 
 <details>
@@ -51,7 +51,7 @@
   3. Wait until you will see the account data
   > This information will also be written to a file named "Today date - ESET ACCOUNTS.txt"
 
-  ![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/business_key_run_win.png)
+  ![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/business_key_run_win.png)
 </details>
 
 ## 2. Generation using your email provider (Totally manual method, but hyper stable)
@@ -79,12 +79,12 @@
 
      Then open that email and copy the link that is in the button (right click on the button, copy link address) and paste it into the console. If you have done everything correctly, the generation will complete successfully!
 
-     ![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/activated_href_esethome.png)
+     ![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/activated_href_esethome.png)
 
   4. Wait until appears you will see the license key 
   > This information will also be written to a file named "Today date - ESET KEYS.txt"
 
-  ![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/key_run_win_custom_email_api.png)
+  ![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/key_run_win_custom_email_api.png)
 </details>
 
 <details>
@@ -112,10 +112,10 @@
 
      Then open that email and copy the link that is in the button (right click on the button, copy link address) and paste it into the console. If you have done everything correctly, the generation will complete successfully!
 
-     ![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/activated_href_business.png)
+     ![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/activated_href_business.png)
 
   5. Wait until appears you will see the license key 
   > This information will also be written to a file named "Today date - ESET KEYS.txt"
 
-![Windows](https://github.com/rzc0d3r/ESET-KeyGen/blob/main/img/business_key_run_win_custom_email_api.png)
+![Windows](https://github.com/cranberis/ESET-KeyGen/blob/main/img/business_key_run_win_custom_email_api.png)
 </details>
