@@ -1,7 +1,6 @@
 name: Generator
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
       account:
@@ -22,7 +21,8 @@ on:
         - 10minutemail
         - guerrillamail
         - developermail
-        default: developermail
+        default: 1secmail  # ИЗМЕНИЛИ ПО УМОЛЧАНИЮ НА 1SECMAIL
+
 jobs:
   GenerateKey:
     runs-on: ubuntu-latest
@@ -34,29 +34,40 @@ jobs:
           MAIL=${{ github.event.inputs.mail }}
           git clone https://github.com/cranberis/ESET-KeyGen.git
           cd ESET-KeyGen
-          sudo apt update
-          sudo apt install python3-pip
-          sudo pip install -r requirements.txt
-          if [[ (${ACCOUNT} != 0) && (${KEY} != 0) ]]
+          
+          # Установка зависимостей
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          
+          # Установка Chrome и драйвера
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+          
+          # Запускаем генерацию
+          if [[ ${KEY} != 0 ]]
           then
-          (seq 1 $((ACCOUNT)) | xargs -I {} -P $((ACCOUNT)) python3 main.py --chrome --account --email-api ${MAIL} --skip-webdriver-menu) & (seq 1 $((KEY)) | xargs -I {} -P $((KEY)) python3 main.py --chrome --key --email-api ${MAIL} --skip-webdriver-menu)
-          echo "Account:" >> $GITHUB_STEP_SUMMARY
-          cat ./*ACCOUNTS.txt >> $GITHUB_STEP_SUMMARY
-          echo -e "\nKey:" >> $GITHUB_STEP_SUMMARY
-          cat ./*KEYS.txt >> $GITHUB_STEP_SUMMARY
-          exit
+            echo "Generating ESET key with ${MAIL}..."
+            venv/bin/python main.py --chrome --key --email-api ${MAIL} --skip-webdriver-menu --no-headless
+            echo -e "\n## Generated Key:" >> $GITHUB_STEP_SUMMARY
+            cat ./*KEYS.txt >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "No keys file found"
           fi
           
           if [[ ${ACCOUNT} != 0 ]]
           then
-          seq 1 $((ACCOUNT)) | xargs -I {} -P $((ACCOUNT)) python3 main.py --chrome --account --email-api ${MAIL} --skip-webdriver-menu
-          echo -e "\nAccount:" >> $GITHUB_STEP_SUMMARY
-          cat ./*ACCOUNTS.txt >> $GITHUB_STEP_SUMMARY
+            echo "Generating ESET account with ${MAIL}..."
+            venv/bin/python main.py --chrome --account --email-api ${MAIL} --skip-webdriver-menu --no-headless
+            echo -e "\n## Generated Account:" >> $GITHUB_STEP_SUMMARY
+            cat ./*ACCOUNTS.txt >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "No accounts file found"
           fi
-          
-          if [[ ${KEY} != 0 ]]
-          then
-          seq 1 $((KEY)) | xargs -I {} -P $((KEY)) python3 main.py --chrome --key --email-api ${MAIL} --skip-webdriver-menu
-          echo -e "\nKey:" >> $GITHUB_STEP_SUMMARY
-          cat ./*KEYS.txt >> $GITHUB_STEP_SUMMARY
-          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: eset-results
+          path: |
+            ESET-KeyGen/*KEYS.txt
+            ESET-KeyGen/*ACCOUNTS.txt
+          retention-days: 1
